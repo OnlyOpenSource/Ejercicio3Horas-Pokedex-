@@ -1,0 +1,33 @@
+<div class="container" role="main" aria-labelledby="page">
+  <h1 id="page" > Busqueda de Elementos</h1>
+  <mat-form-field color="accent" role="search">
+    <input matInput (keyup)="applyFilter($event)" #input aria-label="Buscar Elementos">
+  </mat-form-field>
+
+
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows role="grid" aria-labelledby="tableInfo" >
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef role="columnheader">Number</th>
+      <td mat-cell *matCellDef="let element" role="gridcell">{{element.position}}</td>
+    </ng-container>
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef role="columnheader">image</th>
+      <td mat-cell *matCellDef="let element" role="gridcell">
+        <img src="{{element.image}}" alt="{{element.name}} image" width="100" height="100">
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef role="columnheader">name</th>
+      <td mat-cell *matCellDef="let element" role="gridcell">{{element.name}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" role="row"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" role="row"
+        (click)="getRow(row)" tabindex="0" aria-label="Detalles de la fila"></tr>
+    <tr class="mat-row" *matNoDataRow role="row">
+      <td class="mat-cell" colspan="4" role="gridcell"> We dont have any information about {{input.value}}</td>
+    </tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 100]" showFirstLastButtons aria-label="Select page of results"></mat-paginator>
+</div>
+
+
